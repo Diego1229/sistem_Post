@@ -5,7 +5,7 @@ from app.database import Base
 
 
 class Role(Base):
-    _tablename_ = "Roles"
+    __tablename__ = "Role"
     id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String(50), nullable=False, unique=True)
     description = Column(Text, nullable=False)
@@ -13,21 +13,21 @@ class Role(Base):
     created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
     updated_at = Column(DateTime, default=datetime.utcnow,
                         onupdate=datetime.utcnow, nullable=False)
-    user = relationship("User", back_populates="rol")
+    user = relationship("User", back_populates="role")
 
 
 class User(Base):
-    _tablename_ = "User"
+    __tablename__ = "Users"
     id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String(50), nullable=False, unique=True)
-    last_name = Column(String(50), nullable=False, unique=True)
+    last_name = Column(String(50), nullable=False)
     password = Column(String(255), nullable=False)
-    email = Column(String(100), nullable=False, unique=True)
+    email = Column(String(250), nullable=False, unique=True)
     document_number = Column(String(20), nullable=False, unique=True)
-    phone = Column(String(20), nullable=False, unique=True)
+    phone = Column(String(20), nullable=False)
     is_active = Column(Boolean, default=True, nullable=False)
     id_rol = Column(Integer, ForeignKey("roles.id"))
-    rol = relationship("Role", back_populates="User")
+    rol = relationship("Role", back_populates="Users")
     created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
     updated_at = Column(DateTime, default=datetime.utcnow,
                         onupdate=datetime.utcnow, nullable=False)
