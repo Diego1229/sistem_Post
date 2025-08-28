@@ -1,4 +1,4 @@
-from app.database import engine
+from backend.app.core.database import engine
 from sqlalchemy import text
 
 try:
