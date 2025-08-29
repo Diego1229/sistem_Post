@@ -1,4 +1,4 @@
-from backend.app.core.database import Base, engine
+from backend.app.db.database import Base, engine
 from backend.app.models import User, Role
 
 
