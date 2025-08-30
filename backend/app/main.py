@@ -1,12 +1,12 @@
 from fastapi import FastAPI
-from backend.app.models.Role.Rol_Routers import router as Rol_Routers
+from backend.app.Api import api_router
+from backend.app import modules
 
 app = FastAPI()
 
+app.include_router(api_router)
+
 
 @app.get("/")
-def root():
-    return {"msg": "Bienvenido a mi API 🚀"}
-
-
-app.include_router(Rol_Routers, prefix="/roles", tags=["roles"])
+def read_root():
+    return {"message": "¡Bienvenido a la API!"}

@@ -15,7 +15,7 @@ class User(Base):
     phone = Column(String(20), nullable=False)
     is_active = Column(Boolean, default=True, nullable=False)
     id_rol = Column(Integer, ForeignKey("Role.id"))
-    rol = relationship("Role", back_populates="user")
+    rol = relationship("Role", back_populates="users")
     created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
     updated_at = Column(DateTime, default=datetime.utcnow,
                         onupdate=datetime.utcnow, nullable=False)
