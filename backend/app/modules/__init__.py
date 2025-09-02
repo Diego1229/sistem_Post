@@ -1,4 +1,2 @@
-from .Role import Rol_Models
-from .User import UserModels
-
-__all__ = ["User", "Role"]
+from .Role.Rol_Models import Role
+from .User.User_Models import User

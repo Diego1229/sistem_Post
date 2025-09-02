@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, String, Boolean, ForeignKey, DateTime
 from datetime import datetime
 from sqlalchemy.orm import relationship
-from backend.app.db.database import Base
+from app.db.database import Base
 
 
 class User(Base):
@@ -18,4 +18,5 @@ class User(Base):
     id_rol = Column(Integer, ForeignKey("Role.id"))
     rol = relationship("Role", back_populates="user")
     created_at = Column(DateTime, default=datetime.utcnow)
-    updated_at = Column(DateTime, default=datetime.utcnow,onupdate=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow,
+                        onupdate=datetime.utcnow)
