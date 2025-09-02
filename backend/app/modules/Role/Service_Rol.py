@@ -41,7 +41,7 @@ def get_role_service(db: Session, role_id: int):
         )
     return role
 
-# 📌 Actualiza un rol existente en la base de datos.
+#  Actualiza un rol existente en la base de datos.
 
 
 def update_role_service(db: Session, role_id: int, role: Rol_Schemas.RoleUpdate):
