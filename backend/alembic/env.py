@@ -1,16 +1,34 @@
+import sys
+import os
 from logging.config import fileConfig
-
-from sqlalchemy import engine_from_config
-from sqlalchemy import pool
+from sqlalchemy import engine_from_config, pool
 
 from alembic import context
+from dotenv import load_dotenv
+
+# === 1. AGREGAR RUTA DEL BACKEND PARA IMPORTAR BIEN LOS MÓDULOS ===
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from app.db.database import Base 
+
+# === 2. CARGAR VARIABLES DE ENTORNO ===
+load_dotenv()
+
+# === 3. IMPORTAR CONFIGURACIÓN DEL PROYECTO ===
+from backend.app.core.config import settings
+from backend.app.db.database import Base
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
+
+# === 4. CONFIGURACIÓN DE ALEMBIC ===
 config = context.config
+config.set_main_option("sqlalchemy.url", settings.database_url)
 
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.
+
+# === 5. CONFIGURACIÓN DE LOGS ===
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
@@ -18,15 +36,18 @@ if config.config_file_name is not None:
 # for 'autogenerate' support
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
-target_metadata = None
+
+# === 6. METADATA DE LOS MODELOS ===
+from app.db.database import Base  # importa tu Base de modelos
+target_metadata = Base.metadata
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:
 # my_important_option = config.get_main_option("my_important_option")
 # ... etc.
 
-
-def run_migrations_offline() -> None:
+# === 7. MODO OFFLINE ===
+def run_migrations_offline():
     """Run migrations in 'offline' mode.
 
     This configures the context with just a URL
@@ -38,9 +59,9 @@ def run_migrations_offline() -> None:
     script output.
 
     """
-    url = config.get_main_option("sqlalchemy.url")
+
     context.configure(
-        url=url,
+        url=settings.database_url,
         target_metadata=target_metadata,
         literal_binds=True,
         dialect_opts={"paramstyle": "named"},
@@ -49,7 +70,7 @@ def run_migrations_offline() -> None:
     with context.begin_transaction():
         context.run_migrations()
 
-
+# === 8. MODO ONLINE ===
 def run_migrations_online() -> None:
     """Run migrations in 'online' mode.
 
@@ -71,7 +92,7 @@ def run_migrations_online() -> None:
         with context.begin_transaction():
             context.run_migrations()
 
-
+# === 9. EJECUTAR ALEMBIC ===
 if context.is_offline_mode():
     run_migrations_offline()
 else:
