@@ -5,9 +5,12 @@ from logging.config import fileConfig
 from app.db.database import Base
 from app.core.config import Settings
 
+# importacion de los modelos para que base.metadata los registre
+
+from app.modules.Role.Models import Rol
+from app.modules.User.Models import Usuario
+
 # 🔹 Importar todos los modelos (esto es lo que activa las tablas en Base.metadata)
-import app.modules.Role.Rol_Models
-import app.modules.User.User_Models
 
 # Configuración Alembic
 config = context.config
