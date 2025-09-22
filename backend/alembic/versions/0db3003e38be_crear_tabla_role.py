@@ -1,8 +1,8 @@
-"""init
+"""crear tabla Role
 
-Revision ID: ecc6695143f2
-Revises: 
-Create Date: 2025-09-02 02:21:16.844653
+Revision ID: 0db3003e38be
+Revises: b27b6c9d59c9
+Create Date: 2025-09-18 13:31:47.807677
 
 """
 from typing import Sequence, Union
@@ -12,8 +12,8 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision: str = 'ecc6695143f2'
-down_revision: Union[str, Sequence[str], None] = None
+revision: str = '0db3003e38be'
+down_revision: Union[str, Sequence[str], None] = 'b27b6c9d59c9'
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
 
