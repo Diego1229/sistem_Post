@@ -3,21 +3,17 @@ from typing import Optional
 from datetime import datetime
 
 
-class rolcreate (BaseModel):
+class crearpais(BaseModel):
     nombre: str
-    descripcion: Optional[str] = None
 
 
-class rolupdate(BaseModel):
+class paisupdate(BaseModel):
     nombre: Optional[str] = None
-    descripcion: Optional[str] = None
-    activo: Optional[bool] = None
 
 
-class rolresponse(BaseModel):
+class paisresponse(BaseModel):
     id: int
     nombre: str
-    descripcion: str
     activo: bool
     fecha_creacion: datetime
     fecha_actualizacion: datetime
