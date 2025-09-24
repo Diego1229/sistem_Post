@@ -1,4 +1,4 @@
-from scalar_fastapi import get_scalar_api_reference, Layout
+from scalar_fastapi import get_scalar_api_reference, Layout  # type: ignore
 
 
 def setup_scalar(app):
