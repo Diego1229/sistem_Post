@@ -8,9 +8,9 @@ from app.core.config import Settings
 # importacion de los modelos para que base.metadata los registre
 
 from app.modules.Role.Models import Rol
-from app.modules.User.Models import Usuario
+from app.modules.Usuario.Models import Usuario
 
-# 🔹 Importar todos los modelos (esto es lo que activa las tablas en Base.metadata)
+# Importar todos los modelos (esto es lo que activa las tablas en Base.metadata)
 
 # Configuración Alembic
 config = context.config
@@ -20,7 +20,7 @@ fileConfig(config.config_file_name)  # pyright: ignore[reportArgumentType]
 settings = Settings()
 config.set_main_option("sqlalchemy.url", settings.database_url)
 
-# 🔹 Esto es lo que Alembic necesita
+# Esto es lo que Alembic necesita
 target_metadata = Base.metadata
 
 

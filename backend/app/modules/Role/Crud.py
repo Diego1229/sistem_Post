@@ -1,6 +1,7 @@
 from sqlalchemy.orm import Session
 from . import Models, Schemas
 from fastapi import HTTPException
+from .Models import Rol
 
 # Crear rol con validación
 
@@ -16,7 +17,7 @@ def post_rol(db: Session, rol: Schemas.rolcreate):
 
 
 def get_roles(db: Session):
-    return db.query(Models).all()
+    return db.query(Rol).all()
 
 # Obtener un rol por id
 

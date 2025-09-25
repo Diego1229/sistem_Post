@@ -1,5 +1,5 @@
 from backend.app.db.database import Base, engine
-from backend.app.modules import User, Role
+from backend.app.modules import Usuario, Role
 
 
 def init():
