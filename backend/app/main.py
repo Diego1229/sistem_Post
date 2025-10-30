@@ -1,7 +1,6 @@
 from fastapi import FastAPI
-from app.Api import api_router
 from app import modules
-from backend.app.config.scalar_config import setup_scalar
+from backend.app.db.scalar_config import setup_scalar
 
 app = FastAPI()
 
@@ -9,7 +8,7 @@ app = FastAPI()
 setup_scalar(app)
 
 # Registrar rutas
-app.include_router(api_router)
+app.include_router()
 
 
 @app.get("/")
