@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from app.Api import api_router
 from app import modules
-from app.core.scalar_config import setup_scalar
+from backend.app.config.scalar_config import setup_scalar
 
 app = FastAPI()
 
