@@ -2,7 +2,7 @@ from alembic import context
 from sqlalchemy import engine_from_config, pool
 from logging.config import fileConfig
 
-from backend.app.config.database import Base
+from backend.app.db.database import Base
 from backend.app.config.config import Settings
 
 # importacion de los modelos para que base.metadata los registre
