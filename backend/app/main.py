@@ -1,16 +1,15 @@
 from fastapi import FastAPI
-from app import modules
-from backend.app.db.scalar_config import setup_scalar
+from app.modules.Users import users_router
+from app.db.scalar_config import setup_scalar
 
-app = FastAPI()
+app = FastAPI(title="API General")
 
-# Configurar Scalar
 setup_scalar(app)
 
-# Registrar rutas
-app.include_router()
-
+# Incluir rutas del módulo Users
+app.include_router(users_router)
 
 @app.get("/")
 def read_root():
     return {"message": "¡Bienvenido a la API!"}
+

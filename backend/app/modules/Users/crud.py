@@ -1,42 +1,94 @@
 from sqlalchemy.orm import Session
-from . import Models, Schemas
-from fastapi import HTTPException
+from .models import Rol,  Usuario, UsuarioSede
+from .schemas import RolCreate,RolUpdate, UsuarioCreate, UsuarioUpdate, UsuarioSedeCreate, UsuarioSedeUpdate
+
+class RolCrud:
+    def __init__(self, db:Session):
+        self.db = db
+
+    def get(self, rol_id: int)-> Rol | None:
+        return self.db.query(Rol).filter(Rol.id == rol_id).first()
+    
+    def get_all(self):
+        return self.db.query(Rol).all()
+    
+    def create(self, rol_data: RolCreate):
+        rol = Rol(**rol_data.dict())
+        self.db.add(rol)
+        self.db.commit()
+        self.db.refresh(rol)
+        return rol
+        
+    def update(self, rol: Rol, rol_data: RolUpdate):
+        for field, value in rol_data.dict(exclude_unset=True).items():
+            setattr(rol, field, value)
+        self.db.commit()
+        self.db.refresh(rol)
+        return rol
+
+    def delete(self, rol: Rol):
+        self.db.delete(rol)
+        self.db.commit()
+        
+
+#------------USERS------------------------------------------------------------------------------------------------------------------------       
+
+class UsuarioCrud:
+    def __init__(self, db: Session):
+        self.db = db
+    
+    def get(self,  usuario_id: int)->  Usuario | None:
+        return self.db.query(Usuario).filter(Usuario.id ==  usuario_id).first()
+
+    def get_all(self):
+        return self.db.query(Usuario).all()
+    
+    def create(self, usuario_data: UsuarioCreate):
+        usuario = Usuario(**usuario_data.dict())
+        self.db.add(usuario)
+        self.db.commit()
+        self.db.refresh(usuario)
+        return usuario
+        
+    def update(self, usuario: Usuario, usuario_data: UsuarioUpdate):
+        for field, value in usuario_data.dict(exclude_unset=True).items():
+            setattr(usuario, field, value)
+        self.db.commit()
+        self.db.refresh(usuario)
+        return usuario
+
+    def delete(self, usuario: Usuario):
+        self.db.delete(usuario)
+        self.db.commit()
+
+#-------------------------UsuarioSedes-----------------------------------------------------------------------
 
 
-def crear_usuario(db: Session, usuario: Schemas.UsuarioCreate):
-    db_usuario = Models.Usuario(**usuario.dict())
-    db.add(db_usuario)
-    db.commit()
-    db.refresh(db_usuario)
-    return db_usuario
+        
+class UsuarioSedeCrud:
+    def __init__(self, db: Session):
+        self.db =  db
+    
+    def get(self,  UsuarioSede_id: int)->  UsuarioSede | None:
+        return self.db.query(UsuarioSede).filter(UsuarioSede.id ==  UsuarioSede_id).first()
 
+    def get_all(self):
+        return self.db.query(UsuarioSede).all()
+    
+    def create(self, usuarioSede_data: UsuarioSedeCreate):
+        usuariosede = UsuarioSede(**usuarioSede_data.dict())
+        self.db.add(usuariosede)
+        self.db.commit()
+        self.db.refresh(usuariosede)
+        return usuariosede
+        
+    def update(self, usuariosede: UsuarioSede, usuarioSede_data: UsuarioSedeUpdate):
+        for field, value in usuarioSede_data.dict(exclude_unset=True).items():
+            setattr(usuariosede, field, value)
+        self.db.commit()
+        self.db.refresh(usuariosede)
+        return usuariosede
 
-def get_Usuario(db: Session):
-    return db.query(Models.Usuario).all()
-
-
-def get_Usuario_id(db: Session, id: int):
-    return db.query(Models.Usuario). filter(Models.Usuario.id == id).first()
-
-
-def put_Usuario(db: Session, id: int, Usuario_Update: Schemas.UsuarioUpdate):
-    usuario = db.query(Models.Usuario).filter(Models.Usuario.id == id).first()
-    if usuario is None:
-        raise HTTPException(status_code=404, detail="Usuario no encontrado")
-    datos_update = Usuario_Update.dict(exclude_unset=True)
-    for key, value in datos_update.items():
-        setattr(usuario, key, value)
-    db.commit()
-    db.refresh(usuario)
-    return usuario
-
-
-def delete_usuario(db: Session, id: int):
-    usuario = db.query(Models.Usuario).filter(Models.Usuario.id == id).first()
-    if usuario is None:
-        raise HTTPException(status_code=404, detail="Usuario no encontrado")
-
-    usuario.activo = False  # type: ignore
-    db.commit()
-    db.refresh(usuario)
-    return {"mensaje": f"Usuario {usuario.id} desactivado correctamente"}
+    def delete(self, usuariosede: UsuarioSede):
+        self.db.delete(usuariosede)
+        self.db.commit()
