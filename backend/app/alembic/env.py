@@ -8,7 +8,7 @@ from backend.app.config.config import Settings
 # importacion de los modelos para que base.metadata los registre
 
 from app.modules.Role.Models import Rol
-from app.modules.Users.Models import Usuario
+from backend.app.modules.Users.models import Usuario
 
 # Importar todos los modelos (esto es lo que activa las tablas en Base.metadata)
 
