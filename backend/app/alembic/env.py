@@ -2,13 +2,13 @@ from alembic import context
 from sqlalchemy import engine_from_config, pool
 from logging.config import fileConfig
 
-from app.db.database import Base
-from app.core.config import Settings
+from backend.app.db.database import Base
+from backend.app.config.config import Settings
 
 # importacion de los modelos para que base.metadata los registre
 
 from app.modules.Role.Models import Rol
-from app.modules.Usuario.Models import Usuario
+from app.modules.Users.Models import Usuario
 
 # Importar todos los modelos (esto es lo que activa las tablas en Base.metadata)
 
